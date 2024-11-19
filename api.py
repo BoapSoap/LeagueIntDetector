@@ -20,13 +20,13 @@ headers = {
     "Origin": "https://developer.riotgames.com"
 }
 
-response = requests.get(url,headers=headers)
+response = requests.get(url,headers=headers) #get from the url using said headers 
 
 if response.status_code == 200:
-    summoner_data = response.json()
-    print("puuid: ", summoner_data["puuid"])
-    puuid = summoner_data["puuid"]
+    summoner_data = response.json() #configure the data into a dictionary 
+    print("puuid: ", summoner_data["puuid"]) #parse data because python is godly at that i guess 
+    puuid = summoner_data["puuid"] #when you see this anmol just know after this is going to be skibidi ahh code 💀
 else: 
-    print('shi dont work')
+    print('shi dont work')  #so basically if you get this that means it didnt work 
 
 
