@@ -2,6 +2,7 @@ import requests
 import json 
 from dotenv import load_dotenv 
 import os 
+winCount = 0 
 
 load_dotenv()
 API_KEY = os.getenv("RIOT_API_KEY")
@@ -36,41 +37,51 @@ matchResponse = requests.get(matchesUrl, headers=headers) #SKIBIDI TOILETTTTTTTT
 
 if matchResponse.status_code == 200:
     matchIDList = matchResponse.json() #parse match ids
-    print(json.dumps(matchIDList, indent=4)) #prints the last 30 matches i think 
+    print(json.dumps(matchIDList, indent=4)) #prints the last 20 matches i think 
 else:
     print("yo match data broke too lowkey") #this should never happen but if u fuck it up lmk anmol
 
-print("input the match id you want to view: ")
-matchID = input() 
-matchIDurl = f"https://americas.api.riotgames.com/lol/match/v5/matches/{matchID}" #same shi diff url type shi 
-matchIDresponse = requests.get(matchIDurl, headers=headers) #u know how it is
 
-if matchIDresponse.status_code == 200:
-    matchIDdata = matchIDresponse.json()
-    #uhhhhh get the player's uuid and parse its data
-    #dictionary parsing and some other stuff idk u got it anmol william 🤲🙏📿📿
+
+
+for matchID in matchIDList:
+    matchIDurl = f"https://americas.api.riotgames.com/lol/match/v5/matches/{matchID}" #same shi diff url type shi 
+    matchIDresponse = requests.get(matchIDurl, headers=headers) #u know how it is
+    if matchIDresponse.status_code == 200:
+        matchIDdata = matchIDresponse.json()
     player_data = None
 
     for participant in matchIDdata["info"]["participants"]: #get info from participants (aka players)
-        if participant["puuid"] == puuid: #checking if the puuid matches the previously stored puuid 
-            player_data = participant
-            break
+            if participant["puuid"] == puuid: #checking if the puuid matches the previously stored puuid 
+                player_data = participant
+                ingame_name = player_data["summonerName"] #player name
+                champion = player_data["championName"]
+                kills = player_data["kills"]
+                deaths = player_data["deaths"]
+                assists = player_data["assists"]
+                damage = player_data["totalDamageDealtToChampions"]
+                gamemode = matchIDdata["info"]["gameMode"] #taken from the skibidi game toilet 
+                soloKills = player_data["challenges"]["soloKills"]
+                lane = participant.get("lane", "N/A") #using .get() here because if the lane doesnt exist it will fucking EXPLODE!!!!!!!!!!!
+                if player_data["win"]:
+                    winCount += 1 
+                    win = "Win" 
+                else: 
+                    win = "Loss"
+                print(f"Player: {summoner_name}")
+                print(f"Gamemode: {gamemode}")
+                print(f"Champion: {champion}")
+                print(f"Lane: {lane}")
+                print(f"KDA: {kills}/{deaths}/{assists}")
+                print(f"Solo kills: {soloKills}")
+                print(f"Damage: {damage}")
+                print(f"Result: {win}")
+                print(f"Match ID: {matchID}")
+                print("---------------------------------------------------------------------------")
+                break
 
-    if player_data:
-        ingame_name = player_data["summonerName"] #list of usual stats from a player in a game 
-        champion = player_data["championName"]
-        kills = player_data["kills"]
-        deaths = player_data["deaths"]
-        assists = player_data["assists"]
-        damage = player_data["totalDamageDealtToChampions"]
-        if player_data["win"]:
-            win = "Win" 
-        else: 
-            "Loss"
-        print(f"Player: {summoner_name}")
-        print(f"Champion: {champion}")
-        print(f"KDA: {kills}/{deaths}/{assists}")
-        print(f"Damage: {damage}")
-        print(f"Result: {win}")
-else:
-    print("broooooooooooooooo idk how this happened ngl")
+winRate = (winCount / 20) * 100
+print(f"{summoner_name} has a winrate of {int(winRate)}% out of 20 games")
+
+
+
