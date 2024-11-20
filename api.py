@@ -14,7 +14,7 @@ tag_line = input()
 
 url = f"https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{summoner_name}/{tag_line}"
 
-headers = { 
+headers = { #USE THIS HEADER FOR ALL THINGS PLEASEPLEASEPLEASPEPLEASEPLEASEPLEASE 🥺🙏
     "X-Riot-Token": API_KEY,
     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
     "Origin": "https://developer.riotgames.com"
