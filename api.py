@@ -35,8 +35,19 @@ matchesUrl = f"https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/
 matchResponse = requests.get(matchesUrl, headers=headers) #SKIBIDI TOILETTTTTTTTTTTTTTTTT
 
 if matchResponse.status_code == 200:
-    match_data = matchResponse.json() #parse match ids
-    print("match ids: ", str(match_data)) #pring that shit 
+    matchIDList = matchResponse.json() #parse match ids
+    print(json.dumps(matchIDList, indent=4)) #prints the last 30 matches i think 
 else:
     print("yo match data broke too lowkey") #this should never happen but if u fuck it up lmk anmol
 
+print("input the match id you want to view: ")
+matchID = input() 
+matchIDurl = f"https://americas.api.riotgames.com/lol/match/v5/matches/{matchID}" #same shi diff url type shi 
+matchIDresponse = requests.get(matchIDurl, headers=headers) #u know how it is
+
+if matchIDresponse.status_code == 200:
+    matchIDdata = matchIDresponse.json()
+    #uhhhhh get the player's uuid and parse its data
+    #dictionary parsing and some other stuff idk u got it anmol william 🤲🙏📿📿
+else:
+    print("broooooooooooooooo idk how this happened ngl")
