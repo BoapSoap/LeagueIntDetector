@@ -10,3 +10,6 @@ Run `.\setup.bat`
 
 On Windows Powershell
 Run `.\setup.ps1`
+
+## Start
+Run `python main.py`
