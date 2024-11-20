@@ -49,5 +49,28 @@ if matchIDresponse.status_code == 200:
     matchIDdata = matchIDresponse.json()
     #uhhhhh get the player's uuid and parse its data
     #dictionary parsing and some other stuff idk u got it anmol william 🤲🙏📿📿
+    player_data = None
+
+    for participant in matchIDdata["info"]["participants"]: #get info from participants (aka players)
+        if participant["puuid"] == puuid: #checking if the puuid matches the previously stored puuid 
+            player_data = participant
+            break
+
+    if player_data:
+        ingame_name = player_data["summonerName"] #list of usual stats from a player in a game 
+        champion = player_data["championName"]
+        kills = player_data["kills"]
+        deaths = player_data["deaths"]
+        assists = player_data["assists"]
+        damage = player_data["totalDamageDealtToChampions"]
+        if player_data["win"]:
+            win = "Win" 
+        else: 
+            "Loss"
+        print(f"Player: {summoner_name}")
+        print(f"Champion: {champion}")
+        print(f"KDA: {kills}/{deaths}/{assists}")
+        print(f"Damage: {damage}")
+        print(f"Result: {win}")
 else:
     print("broooooooooooooooo idk how this happened ngl")
