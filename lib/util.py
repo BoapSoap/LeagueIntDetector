@@ -16,6 +16,7 @@ def calculate_winrate(win_count, total_games):
     """
     if total_games > 0:
         win_rate = (win_count / total_games) * 100
+        print("skibidi toilet")
         return int(win_rate)
     else:
         raise ValueError("Total games must be greater than zero")
