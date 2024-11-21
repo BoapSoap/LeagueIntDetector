@@ -3,21 +3,26 @@ from lib.util import calculate_winrate
 
 #######
 
-print('input summoner name: ')
+print('Input Summoner Name: ')
 summoner_name = input()
-print('input riot id tag')
+print('Input Riot ID Tag: ')
 summoner_tag = input()
 
 #######
 
-puuid = get_puuid(summoner_name, summoner_tag)
-match_ids = get_match_ids_from_puuid(puuid)
+try:
+    puuid = get_puuid(summoner_name, summoner_tag)
+    match_ids = get_match_ids_from_puuid(puuid)
+except:
+    print("ID or Summoner Name not found!")
+    exit(0)
+
 
 #######
 
 winCount = 0
 all_match_data = []  # list to store each match's data
-print("hol up yn ts processing...")
+print("Loading...")
 
 for match_id in match_ids:
     match_details = get_match_details(match_id)
