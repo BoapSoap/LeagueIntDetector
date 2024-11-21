@@ -24,7 +24,7 @@ except:
 
 winCount = 0
 all_match_data = []  # list to store each match's data
-print("Loading...")
+print("Player found! Compiling data...")
 
 for match_id in match_ids:
     match_details = get_match_details(match_id)
