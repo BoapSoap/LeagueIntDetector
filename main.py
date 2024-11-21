@@ -1,4 +1,5 @@
 from lib.api import get_puuid, get_match_ids_from_puuid, get_match_details
+from lib.util import calculate_winrate
 
 #######
 
@@ -50,5 +51,5 @@ for match_id in match_ids:
             print("---------------------------------------------------------------------------")
             break
 
-winRate = (winCount / 20) * 100
-print(f"{summoner_name} has a winrate of {int(winRate)}% out of 20 games")
+win_rate = calculate_winrate(winCount, len(match_ids)) # OH MY GREAT SKIBIDI IT WORKS
+print(f"{summoner_name} has a winrate of {win_rate}% out of {len(match_ids)} games") #im telling it to print the number of games too so when we send it to ai it know what we yappin about more context
