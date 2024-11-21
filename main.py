@@ -1,5 +1,6 @@
 from lib.api import get_puuid, get_match_ids_from_puuid, get_match_details
 from lib.util import calculate_winrate
+from lib.chatgpt import load_match_data_from_csv, summarize_match_data_with_gpt
 import csv
 import os 
 
@@ -24,7 +25,7 @@ except:
 
 winCount = 0
 all_match_data = []  # list to store each match's data
-print("Player found! Compiling data...")
+print("Player found! Gathering info...")
 
 for match_id in match_ids:
     match_details = get_match_details(match_id)
@@ -101,3 +102,22 @@ with open(csv_file, mode="w", newline="", encoding="utf-8") as file:
 print(f"Data successfully exported to {csv_file}")
 #im not going to lie when i was researching python's csv handling api i thought it would be a lot more complicated
 # 🥞 anmol lmk if you want me to turn this into a function later cuz i was thinking about it and i was 🤔💭 mayube...
+# its fine the util.py is just for the calculation scripts and anyway its not rlly calculating anything so - ANMOL HAHAHA
+
+#######
+#######
+#######
+
+
+# CHAT GPT TIME!!!!
+print("Waiting for AI analysis...")
+# load match data from the CSV
+match_data = load_match_data_from_csv(csv_file)
+
+# call the ChatGPT API to summarize the match data
+gpt_summary = summarize_match_data_with_gpt(match_data)
+
+# print out the summary result
+print("Summary from ChatGPT:")
+print(gpt_summary)
+
