@@ -3,3 +3,4 @@ venv/
 lib/__pycache__/
 beautifyJson.py
 beautifiedMatchIDdata
+/csv_files

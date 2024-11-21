@@ -38,4 +38,4 @@ def get_match_details(match_id):
         return match_details
     else:
         raise RuntimeError("Failed to get match details for", match_id)
-
+    

@@ -1,5 +1,7 @@
 from lib.api import get_puuid, get_match_ids_from_puuid, get_match_details
 from lib.util import calculate_winrate
+import csv
+import os 
 
 #######
 
@@ -83,3 +85,19 @@ win_rate = calculate_winrate(winCount, len(match_ids))  # OH MY GREAT SKIBIDI IT
 print(
     f"{summoner_name} has a winrate of {win_rate}% out of {len(match_ids)} games")  # im telling it to print the number of games too so when we send it to ai it know what we yappin about more context
 
+
+#csv = comma skibidi values 
+folder_path = "csv_files" #folder name 
+os.makedirs(folder_path, exist_ok=True) #makes sure the folder exists, if it doesn't then don't do anything 
+
+csv_file = os.path.join(folder_path, f"{summoner_name}_match_data.csv") #creates the csv file in the csv_files folder 
+#ok created folder, this actually took time to look up lol 
+with open(csv_file, mode="w", newline="", encoding="utf-8") as file: 
+    fieldnames = all_match_data[0].keys() #takes the keys of the dictionary as the header / columns 
+    writer = csv.DictWriter(file, fieldnames=fieldnames) #create the thing to write the thing those who know
+    writer.writeheader() #get the key values (aka the stat names) and makes it the header
+    writer.writerows(all_match_data) #writes data to the rows according to column 
+
+print(f"Data successfully exported to {csv_file}")
+#im not going to lie when i was researching python's csv handling api i thought it would be a lot more complicated
+# 🥞 anmol lmk if you want me to turn this into a function later cuz i was thinking about it and i was 🤔💭 mayube...
